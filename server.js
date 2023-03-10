@@ -25,6 +25,8 @@ connection.on('error', (err) => {
     process.exit();
 });
 
+app.use("/api/v1/user", require("./routes/user"));
+
 
 app.get('/', (req, res) => {
     res.send('Hello from backend')

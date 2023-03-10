@@ -6,7 +6,6 @@ const userSchema = new Schema({
     name: { type: String, require: true },
     email: { type: String, require: true, unique: true },
     password: { type: String, require: true, minLength: 5 }
-
 },
     {
         timestamps: true
@@ -21,8 +20,12 @@ userSchema.pre('save', async function (next) {
 })
 
 userSchema.methods.verifyPassword = async function (password) {
-    var result = await bcrypt.compare(password, this.password);
-    return result;
+    try {
+        var result = await bcrypt.compare(password, this.password);
+        return result;
+    } catch (error) {
+        return error;
+    }
 }
 
 module.exports = mongoose.model("User", userSchema)
