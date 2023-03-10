@@ -54,7 +54,9 @@ loginUser = async (req, res, next) => {
             errorMessage.error = 'The password you provided is incorrect';
             return res.status(status.bad).json(errorMessage);
         }
-
+        let token = await user.signToken();
+        successMessage.user = user.userJSON(token);
+        return res.status(status.success).json(successMessage);
     } catch (err) {
         console.log(err)
         errorMessage.error = 'Operation was not successful';
