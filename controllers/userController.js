@@ -6,7 +6,7 @@ createUser = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
         if (isEmpty(email) || isEmpty(name) || isEmpty(password)) {
-            errorMessage.error = 'Email, password,  name and mobile field cannot be empty';
+            errorMessage.error = 'Email, password and name field cannot be empty';
             return res.status(status.bad).json(errorMessage);
         }
         if (!isValidEmail(email)) {
@@ -36,6 +36,33 @@ createUser = async (req, res, next) => {
     }
 }
 
+loginUser = async (req, res, next) => {
+    const { email, password } = req.body;
+    if (isEmpty(email) || isEmpty(password)) {
+        errorMessage.error = 'Email/Password required';
+        return res.status(status.bad).json(errorMessage)
+    }
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            errorMessage.error = "User with this email does not exist"
+            return res.status(status.notfound).json(errorMessage)
+        }
+
+        const result = await user.verifyPassword(password);
+        if ( !result ) {
+            errorMessage.error = 'The password you provided is incorrect';
+            return res.status(status.bad).json(errorMessage);
+        }
+
+    } catch (err) {
+        console.log(err)
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).json(errorMessage);
+    }
+}
+
 module.exports = {
-    createUser
+    createUser,
+    loginUser
 }
