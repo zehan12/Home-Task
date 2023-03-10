@@ -6,8 +6,11 @@ const port = process.env.PORT || "9000"
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
 
 //=== 1 - App created
+// Creating express app and configuring middleware needed for authentication
 const app = express();
-
+app.use(logger("dev"))
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 //=== 2 - SET UP DATABASE
 //Configure mongoose's promise to global promise
@@ -22,9 +25,6 @@ connection.on('error', (err) => {
     process.exit();
 });
 
-app.use(logger("dev"))
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     res.send('Hello from backend')
