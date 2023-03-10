@@ -13,7 +13,7 @@ const validatePassword = (password) => {
 };
 
 //Empty Check
-const empty = (input) => {
+const isEmpty = (input) => {
     if (input === undefined || input === '') {
         return true;
     }
@@ -23,5 +23,5 @@ const empty = (input) => {
 module.exports = {
     isValidEmail,
     validatePassword,
-    empty
+    isEmpty
 }
