@@ -25,8 +25,9 @@ createUser = async (req, res, next) => {
             return res.status(status.conflict).json(errorMessage)
         } else {
             const user = await User.create({ name, email, password })
-            res.status(status.success).json({ user });
-
+            let token = await user.signToken();
+            successMessage.user = user.userJSON(token);
+            return res.status(status.success).json(successMessage);
         }
 
     } catch (err) {
@@ -50,7 +51,7 @@ loginUser = async (req, res, next) => {
         }
 
         const result = await user.verifyPassword(password);
-        if ( !result ) {
+        if (!result) {
             errorMessage.error = 'The password you provided is incorrect';
             return res.status(status.bad).json(errorMessage);
         }
