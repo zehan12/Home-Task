@@ -26,6 +26,8 @@ connection.on('error', (err) => {
 });
 
 app.use("/api/v1/user", require("./routes/user"));
+app.use("/api/v1/auth", require("./routes/auth"));
+// app.use("/api/v1/admin", require("./routes/admin"));
 
 
 app.get('/', (req, res) => {

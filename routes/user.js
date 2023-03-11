@@ -5,7 +5,7 @@ const router = express();
 
 router.get("/", verifyToken, (req, res) => { res.end("user page") })
 
-router.post("/",createUser)
+router.post("/register",createUser)
 
 router.post("/login", loginUser)
 
