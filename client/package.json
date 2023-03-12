@@ -15,6 +15,7 @@
     "@heroicons/react": "^2.0.16",
     "daisyui": "^2.51.3",
     "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
@@ -30,6 +31,8 @@
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",
     "vite": "^4.1.0",
-    "vitest": "^0.27.2"
+    "vite-plugin-windicss": "^1.8.10",
+    "vitest": "^0.27.2",
+    "windicss": "^3.5.6"
   }
 }
